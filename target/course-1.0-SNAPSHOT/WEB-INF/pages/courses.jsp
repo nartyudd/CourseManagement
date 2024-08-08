@@ -4,8 +4,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<h1 class="text-center text-primary mt-1">QUẢN LÝ SẢN PHẨM</h1>
-<c:url value="" var="action" />
+<h1 class="text-center text-primary mt-1">QUẢN LÝ KHÓA HỌC</h1>
+<c:url value="/courses" var="action" />
 <c:if test="${errMsg != null}">
     <div class="alert alert-danger">
         ${errMsg}

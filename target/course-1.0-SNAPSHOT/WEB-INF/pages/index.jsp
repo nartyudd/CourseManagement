@@ -22,18 +22,18 @@
             <a class="btn btn-info m-1" href="<c:url value="/courses" />">Thêm khóa học</a>
             <table class="table table-striped">
                 <tr>
-                    <th>Loại khóa học</th>
+                    <th>Tên khóa học</th>
                     <th></th>
                 </tr>
-                <c:forEach items="${categories}" var="cat">
-                    <tr id="category${cat.id}">
-                        <td >${cat.name}</td>
+                <c:forEach items="${courses}" var="p">
+                    <tr id="course${p.id}">
+                        <td>${p.name}</td>
                         <td>
-                            <c:url value="/categories/${cat.id}" var="u" />
+                            <c:url value="/courses/${p.id}" var="u" />
                             <a href="${u}" class="btn btn-success">&orarr;</a>
 
-                            <c:url value="/api/categories/${cat.id}" var="uD" />
-                            <button onclick="deleteCourse('${uD}', ${cat.id})" class="btn btn-danger">&times;</button>
+                            <c:url value="/api/courses/${p.id}" var="uD" />
+                            <button onclick="deleteCourse('${uD}', ${p.id})" class="btn btn-danger">&times;</button>
                         </td>
                     </tr>
                 </c:forEach>

@@ -24,13 +24,13 @@ DROP TABLE IF EXISTS `account`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `account` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `role_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `role_id` (`role_id`),
   CONSTRAINT `fk_account_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
+INSERT INTO `account` VALUES (1,'admin','$2a$10$5X9k5N1sTc1/CjVH5XJoje3QMYijH3ETpgkox00R0MdPaJPPrf7wO',1),(2,'lecturer1','123',2),(3,'user1','123',3),(4,'dhthanh','$2a$10$5X9k5N1sTc1/CjVH5XJoje3QMYijH3ETpgkox00R0MdPaJPPrf7wO',1);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,7 +54,7 @@ CREATE TABLE `category` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,6 +63,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` VALUES (1,'Technology'),(2,'Science'),(3,'Arts');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +85,7 @@ CREATE TABLE `certificate` (
   KEY `course_id` (`course_id`),
   CONSTRAINT `fk_certificate_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_certificate_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,6 +94,7 @@ CREATE TABLE `certificate` (
 
 LOCK TABLES `certificate` WRITE;
 /*!40000 ALTER TABLE `certificate` DISABLE KEYS */;
+INSERT INTO `certificate` VALUES (1,'Java Programming Certificate',1,1,'Certified Java Developer'),(2,'Data Science Certificate',2,2,'Certified Data Scientist');
 /*!40000 ALTER TABLE `certificate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,15 +110,12 @@ CREATE TABLE `course` (
   `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `created_date` datetime DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
-  `account_id` int DEFAULT NULL,
   `cate_id` int DEFAULT NULL,
   `expirate_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `account_id` (`account_id`),
   KEY `cate_id` (`cate_id`),
-  CONSTRAINT `fk_course_account` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_course_category` FOREIGN KEY (`cate_id`) REFERENCES `category` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,6 +124,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
+INSERT INTO `course` VALUES (1,'Java Programming','2023-01-01 00:00:00','2023-06-01 00:00:00',1,'2024-01-01 00:00:00'),(2,'Data Science Basics','2023-02-01 00:00:00','2023-07-01 00:00:00',2,'2024-02-01 00:00:00'),(3,'Introduction to Painting','2023-03-01 00:00:00','2023-08-01 00:00:00',3,'2024-03-01 00:00:00');
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +147,7 @@ CREATE TABLE `feed_back` (
   CONSTRAINT `fk_feed_back_account` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_feed_back_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE,
   CONSTRAINT `feed_back_chk_1` CHECK (((`rating` >= 1) and (`rating` <= 5)))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,6 +156,7 @@ CREATE TABLE `feed_back` (
 
 LOCK TABLES `feed_back` WRITE;
 /*!40000 ALTER TABLE `feed_back` DISABLE KEYS */;
+INSERT INTO `feed_back` VALUES (1,'Great course!',3,1,5),(2,'Very informative.',3,2,4);
 /*!40000 ALTER TABLE `feed_back` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +177,7 @@ CREATE TABLE `lesson` (
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`),
   CONSTRAINT `fk_lesson_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,6 +186,7 @@ CREATE TABLE `lesson` (
 
 LOCK TABLES `lesson` WRITE;
 /*!40000 ALTER TABLE `lesson` DISABLE KEYS */;
+INSERT INTO `lesson` VALUES (1,'Introduction to Java','Content for Java','2023-01-01 00:00:00','2023-06-01 00:00:00',1),(2,'Data Science Introduction','Content for Data Science','2023-02-01 00:00:00','2023-07-01 00:00:00',2);
 /*!40000 ALTER TABLE `lesson` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,7 +208,7 @@ CREATE TABLE `notify` (
   KEY `course_id` (`course_id`),
   CONSTRAINT `fk_notify_account` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_notify_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,6 +217,7 @@ CREATE TABLE `notify` (
 
 LOCK TABLES `notify` WRITE;
 /*!40000 ALTER TABLE `notify` DISABLE KEYS */;
+INSERT INTO `notify` VALUES (1,'New course available',1,1,'Java Programming is now available'),(2,'Course update',2,2,'Data Science Basics has been updated');
 /*!40000 ALTER TABLE `notify` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,7 +240,7 @@ CREATE TABLE `profile` (
   KEY `role_id` (`role_id`),
   CONSTRAINT `fk_profile_account` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_profile_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,6 +249,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
+INSERT INTO `profile` VALUES (1,'Admin User','1234567890','admin@example.com',1,1),(2,'Lecturer User','0987654321','lecturer1@example.com',2,2),(3,'Regular User','1122334455','user1@example.com',3,3);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,6 +276,7 @@ CREATE TABLE `profile_certificate` (
 
 LOCK TABLES `profile_certificate` WRITE;
 /*!40000 ALTER TABLE `profile_certificate` DISABLE KEYS */;
+INSERT INTO `profile_certificate` VALUES (1,1),(2,2);
 /*!40000 ALTER TABLE `profile_certificate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,6 +303,7 @@ CREATE TABLE `profile_course` (
 
 LOCK TABLES `profile_course` WRITE;
 /*!40000 ALTER TABLE `profile_course` DISABLE KEYS */;
+INSERT INTO `profile_course` VALUES (1,1),(2,2),(3,3);
 /*!40000 ALTER TABLE `profile_course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,6 +331,7 @@ CREATE TABLE `profile_quizz` (
 
 LOCK TABLES `profile_quizz` WRITE;
 /*!40000 ALTER TABLE `profile_quizz` DISABLE KEYS */;
+INSERT INTO `profile_quizz` VALUES (1,1,1),(2,2,0);
 /*!40000 ALTER TABLE `profile_quizz` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,7 +352,7 @@ CREATE TABLE `quizz` (
   PRIMARY KEY (`id`),
   KEY `lesson_id` (`lesson_id`),
   CONSTRAINT `fk_quizz_lession` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -353,6 +361,7 @@ CREATE TABLE `quizz` (
 
 LOCK TABLES `quizz` WRITE;
 /*!40000 ALTER TABLE `quizz` DISABLE KEYS */;
+INSERT INTO `quizz` VALUES (1,'Quizz for Java',1,'2023-01-01 00:00:00','2023-06-01 00:00:00',90.00),(2,'Quizz for Data Science',2,'2023-02-01 00:00:00','2023-07-01 00:00:00',85.50);
 /*!40000 ALTER TABLE `quizz` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,7 +376,7 @@ CREATE TABLE `role` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,6 +385,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'ADMIN'),(2,'LECTURER'),(3,'USER');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -388,4 +398,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-01  3:11:26
+-- Dump completed on 2024-08-08  0:19:55
