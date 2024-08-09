@@ -6,6 +6,7 @@ package com.dht.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,6 +19,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  *
@@ -42,7 +46,7 @@ public class SpringSecurityConfigs extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     @Bean
     public Cloudinary cloudinary() {
         Cloudinary cloudinary
@@ -61,19 +65,23 @@ public class SpringSecurityConfigs extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http)
-            throws Exception {
-//        http.formLogin().usernameParameter("username").passwordParameter("password");
-//        http.formLogin().defaultSuccessUrl("/").failureUrl("/login?error");
-//        
-//        http.logout().logoutSuccessUrl("/login");
-//        
-//        http.exceptionHandling().accessDeniedPage("/login?accessDenied");
-//        
-//        http.authorizeRequests().antMatchers("/api/**").permitAll()
-//                .antMatchers("/**").hasRole("ADMIN");
-//        
-//        http.csrf().disable();
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/api/**").hasRole("ADMIN") // Allow only ADMIN role to access API endpoints
+                .antMatchers("/admin/**").hasRole("ADMIN") // Secure other ADMIN routes
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/")
+                .failureUrl("/login?error")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login")
+                .and()
+                .csrf().disable(); // Disable CSRF if DELETE requests are failing due to CSRF
     }
-    
+
 }

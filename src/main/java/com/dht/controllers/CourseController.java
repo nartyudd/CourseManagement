@@ -33,13 +33,13 @@ public class CourseController {
     
     @PostMapping("/courses")
     public String createView(Model model, 
-            @ModelAttribute(value = "course") @Valid Course p,
+            @ModelAttribute(value = "course") @Valid Course c,
             BindingResult rs) {
         if (rs.hasErrors())
             return "courses";
         
         try {
-            this.courseService.addOrUpdate(p);
+            this.courseService.addOrUpdate(c);
             
             return "redirect:/";
         } catch (Exception ex) {

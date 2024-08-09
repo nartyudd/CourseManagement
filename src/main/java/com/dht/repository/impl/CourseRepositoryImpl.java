@@ -51,11 +51,14 @@ public class CourseRepositoryImpl implements CourseRepository {
 
             String cateId = params.get("cateId");
             if (cateId != null && !cateId.isEmpty()) {
-                Predicate p4 = b.equal(root.get("categoryId"), Integer.parseInt(cateId));
+                Predicate p4 = b.equal(root.get("cateId"), Integer.parseInt(cateId));
                 predicates.add(p4);
             }
+            
+            q.where(predicates.toArray(new Predicate[0]));
         }
-
+        
+        
         Query query = s.createQuery(q);
 
         if (params != null) {
@@ -74,12 +77,12 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public void addOrUpdate(Course p) {
+    public void addOrUpdate(Course c) {
         Session s = this.factory.getObject().getCurrentSession();
-        if (p.getId() != null) {
-            s.update(p);
+        if (c.getId() != null) {
+            s.update(c);
         } else {
-            s.save(p);
+            s.save(c);
         }
     }
 
@@ -93,7 +96,7 @@ public class CourseRepositoryImpl implements CourseRepository {
     @Override
     public void deleteCourse(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        Course p = this.getCourseById(id);
-        s.delete(p);
+        Course c = this.getCourseById(id);
+        s.delete(c);
     }
 }

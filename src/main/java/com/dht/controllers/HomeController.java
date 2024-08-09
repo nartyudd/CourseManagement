@@ -7,6 +7,7 @@ package com.dht.controllers;
 import com.dht.repository.impl.CategoryRepositoryImpl;
 import com.dht.service.CategoryService;
 import com.dht.service.CourseService;
+import com.dht.service.LessonService;
 import java.util.Map;
 import javax.persistence.Query;
 import org.hibernate.Session;
@@ -31,9 +32,16 @@ public class HomeController {
     private CourseService courseService;
     @Autowired
     private CategoryService cateService;
+    
+    @Autowired
+    private LessonService lessonService;
     @ModelAttribute
     public void commAttrs(Model model) {
         model.addAttribute("categories", cateService.getCates());
+    }
+    @ModelAttribute
+    public void lesson(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("lesson", lessonService.getLessons(params));
     }
     @RequestMapping("/")
     public String index(Model model, @RequestParam Map<String, String> params) {

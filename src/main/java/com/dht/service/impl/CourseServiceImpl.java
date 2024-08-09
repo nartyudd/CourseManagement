@@ -30,14 +30,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void addOrUpdate(Course c) {
-        if (!c.getFile().isEmpty()) {
-            try {
-                Map res = this.cloudinary.uploader().upload(c.getFile().getBytes(),
-                            ObjectUtils.asMap("resource_type", "auto"));
-            } catch (IOException ex) {
-                Logger.getLogger(CourseServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
         this.courseRepo.addOrUpdate(c);
     }
 

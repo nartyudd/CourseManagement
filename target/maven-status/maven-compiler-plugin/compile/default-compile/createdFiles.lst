@@ -17,7 +17,6 @@ com\dht\configs\TilesConfigs.class
 com\dht\formatters\CategoryFormatter.class
 com\dht\service\CategoryService.class
 com\dht\pojo\FeedBack_.class
-com\dht\controllers\ApiProductController.class
 com\dht\configs\SpringSecurityConfigs.class
 com\dht\controllers\ApiCategoryController.class
 com\dht\pojo\ProfileQuizzPK.class

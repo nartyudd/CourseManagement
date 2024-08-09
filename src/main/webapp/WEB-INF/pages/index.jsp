@@ -8,10 +8,21 @@
     <div class="row">
         <div class="col-md-2 col-12 bg-secondary">
             <c:url value="/"  var="action" />
-            <form action="${action}">
+            <form action="${action}" method="get">
                 <div class="mb-3 mt-3">
-                    <label for="kw" class="form-label">Name Course:</label>
-                    <input type="text" class="form-control" >
+                    <label for="kw" class="form-label">Từ khóa:</label>
+                    <input type="text" class="form-control" id="kw" placeholder="Từ khóa..." name="q">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="cateId" class="form-label">Danh mục khóa học:</label>
+                    <select class="form-select" id="cateId" name="cateId">
+                        <option value="">All</option>
+                        <c:forEach items="${categories}" var="category">
+                            <option value="${category.id}">
+                                ${category.name}
+                            </option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <div class="mb-3 mt-3">
                     <button class="btn btn-info" type="submit">Tìm kiếm</button>
@@ -23,17 +34,22 @@
             <table class="table table-striped">
                 <tr>
                     <th>Tên khóa học</th>
+                    <th>Loại khóa học</th>
                     <th></th>
                 </tr>
-                <c:forEach items="${courses}" var="p">
-                    <tr id="course${p.id}">
-                        <td>${p.name}</td>
+                <c:forEach items="${courses}" var="c">
+                    <tr id="course${c.id}">
                         <td>
-                            <c:url value="/courses/${p.id}" var="u" />
+                             <c:url value="/courses/${c.id}" var="u" />
+                             <a href="${u}">${c.name}</a>
+                        </td>
+                        <td>${c.cateId.name}</td>
+                        <td>
+                            <c:url value="/courses/${c.id}" var="u" />
                             <a href="${u}" class="btn btn-success">&orarr;</a>
 
-                            <c:url value="/api/courses/${p.id}" var="uD" />
-                            <button onclick="deleteCourse('${uD}', ${p.id})" class="btn btn-danger">&times;</button>
+                            <c:url value="/api/courses/${c.id}" var="uD" />
+                            <button onclick="deleteCourse('${uD}', ${c.id})" class="btn btn-danger">&times;</button>
                         </td>
                     </tr>
                 </c:forEach>

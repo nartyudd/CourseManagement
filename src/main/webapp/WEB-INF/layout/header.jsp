@@ -24,6 +24,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/" />">Quản lý tài khoản</a>
                 </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/" />">
+                            <s:authentication property="principal.username" />
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-danger" href="<c:url value="/logout" />">
+                           Đăng xuất
+                        </a>
+                    </li>
             </ul>
         </div>
     </div>

@@ -1,0 +1,49 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Aug 9, 2024, 2:46:06 AM
+    Author     : Duy
+*/
+
+/* styles.css */
+.card-header {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.list-group-item {
+    border: none;
+    padding: 1rem;
+    background-color: #f8f9fa; /* Light background for list items */
+}
+
+.btn-outline-primary {
+    border-color: #007bff; /* Primary color border */
+    color: #007bff; /* Primary color text */
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+}
+.list-group-item {
+    padding: 10px;
+}
+
+/* Đặt lề cho nội dung bài giảng */
+.content-indent {
+    margin-left: 20px;
+}
+
+/* Đặt thuộc tính cho các nút */
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+

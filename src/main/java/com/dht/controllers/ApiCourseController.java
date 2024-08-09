@@ -27,11 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
-public class ApiProductController {
+public class ApiCourseController {
     @Autowired
     private CourseService courseService;
     
-    @DeleteMapping("/course/{courseId}")
+    @DeleteMapping("/courses/{courseId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable(value = "courseId") int id) {
         this.courseService.deleteCourse(id);
