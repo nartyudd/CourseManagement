@@ -32,6 +32,12 @@ public class CourseRepositoryImpl implements CourseRepository {
     private static final int PAGE_SIZE = 4;
     @Autowired
     private LocalSessionFactoryBean factory;
+    @Override
+    public List<Course> getCourses() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("From Course");
+        return q.getResultList();
+    }
 
     @Override
     public List<Course> getCourses(Map<String, String> params) {

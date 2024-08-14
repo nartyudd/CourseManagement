@@ -28,24 +28,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @ControllerAdvice
 public class HomeController {
+
     @Autowired
     private CourseService courseService;
     @Autowired
     private CategoryService cateService;
-    
+
     @Autowired
     private LessonService lessonService;
+
     @ModelAttribute
     public void commAttrs(Model model) {
         model.addAttribute("categories", cateService.getCates());
+        model.addAttribute("Course", courseService.getCourses());
+        model.addAttribute("lessons", lessonService.getLessons());
     }
-    @ModelAttribute
-    public void lesson(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("lesson", lessonService.getLessons(params));
-    }
+
     @RequestMapping("/")
     public String index(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("courses", this.courseService.getCourses(params));
-        return "home"; 
+        model.addAttribute("course", this.courseService.getCourses(params));
+        return "home";
+    }
+    @RequestMapping("/lessons")
+    public String lesson(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("lesson", this.lessonService.getLessons(params));
+        return "lessons";
     }
 }

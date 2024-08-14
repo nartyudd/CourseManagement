@@ -33,7 +33,14 @@ public class LessonRepositoryImpl implements LessonRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
-
+    
+    @Override
+    public List<Lesson> getLessons() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("From Lesson");
+        return q.getResultList();
+    }
+    
     @Override
     public List<Lesson> getLessons(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -46,9 +53,14 @@ public class LessonRepositoryImpl implements LessonRepository {
             List<Predicate> predicates = new ArrayList<>();
             String kw = params.get("q");
             if (kw != null && !kw.isEmpty()) {
-                Predicate p1 = b.like(root.get("content"), String.format("%%%s%%", kw));
+                Predicate p1 = b.like(root.get("name"), String.format("%%%s%%", kw));
                 predicates.add(p1);
             }
+//            String courseId = params.get("courseId");
+//            if (courseId != null && !courseId.isEmpty()) {
+//                Predicate p2 = b.equal(root.get("courseId"), Integer.parseInt(courseId));
+//                predicates.add(p2);
+//            }
             q.where(predicates.toArray(new Predicate[0]));
         }
         Query query = s.createQuery(q);

@@ -37,7 +37,7 @@
                     <th>Loại khóa học</th>
                     <th></th>
                 </tr>
-                <c:forEach items="${courses}" var="c">
+                <c:forEach items="${course}" var="c">
                     <tr id="course${c.id}">
                         <td>
                              <c:url value="/courses/${c.id}" var="u" />

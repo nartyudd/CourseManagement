@@ -17,4 +17,5 @@ public interface CourseService {
     void addOrUpdate(Course c);
     public Course getCourseById(int id);
     void deleteCourse(int id);
+    List<Course> getCourses();
 }

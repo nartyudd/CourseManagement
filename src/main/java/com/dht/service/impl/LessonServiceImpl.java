@@ -17,6 +17,10 @@ public class LessonServiceImpl implements LessonService {
     @Autowired
     private LessonRepository lessonRepository;
     
+    @Override
+    public List<Lesson> getLessons() {
+        return this.lessonRepository.getLessons();
+    }
     
     public List<Lesson> getLessons(Map<String, String> params) {
         return this.lessonRepository.getLessons(params);

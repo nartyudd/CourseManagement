@@ -27,11 +27,12 @@
         </div>
 
         <div class="form-group mb-4">
-            <label for="name" class="form-label">Danh mục khóa học: </label>
+            <label for="name" class="form-label">Danh mục loai khóa học: </label>
             <form:select class="form-control" path="cateId">
                 <c:forEach items="${categories}" var="c">
                     <c:choose>
                         <c:when test="${c.id == course.cateId.id}">
+                            <c:out value = "${c.id}"/>
                             <option value="${c.id}" selected>${c.name}</option>
                         </c:when>
                         <c:otherwise>
@@ -42,18 +43,22 @@
             </form:select>
         </div>
 
+
         <div class="form-group mb-4">
             <label for="name" class="form-label">Bài Giảng</label>
             <div class="card mb-4">
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         <c:set var="hasLessons" value="false" />
-                        <c:forEach var="les" items="${lesson}">
-                            <c:if test="${les.courseId.name == course.name}">
+                        <c:forEach var="les" items="${lessons}">
+                            <c:if test="${les.courseId.id == course.id}">
                                 <c:set var="hasLessons" value="true" />
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <span style="color: blue"> Nội dung bài giảng "${les.name}" : </span>
-                                    <a href="#" class="btn btn-sm btn-outline-primary">Chi Tiết</a>
+                                    <div >
+                                        <button class="btn btn-danger">&times;</button>
+                                        <a href="<c:url value="/lessons/${les.id}" />" class="btn btn-sm btn-outline-primary">Chi Tiết</a>
+                                    </div>
                                 </li>
                                 <li class="list-group-item content-indent">
                                     ${les.content}
@@ -64,13 +69,13 @@
                             <li class="list-group-item">CHƯA CÓ BÀI GIẢNG NÀO</li>
                             </c:if>
                     </ul>
-                    <button class="btn btn-info mt-3 d-block mx-auto">Thêm Bài Giảng Mới</button>
+                    <a style="text-align: center" class="btn btn-info m-1" href="<c:url value="/lessons" />">Thêm Bài Giảng Mới</a>
                 </div>
             </div>
         </div>
 
-
         <div class="form-group mb-4">
+            <form:hidden path="id" />
             <button class="btn btn-success btn-block" type="submit">
                 <c:choose>
                     <c:when test="${course.id != null}">
@@ -84,3 +89,4 @@
         </div>
     </form:form>
 </div>
+

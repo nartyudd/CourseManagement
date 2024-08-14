@@ -23,10 +23,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background-color: #f8f9fa; /* Light background for list items */
 }
 
-.btn-outline-primary {
-    border-color: #007bff; /* Primary color border */
-    color: #007bff; /* Primary color text */
-}
 
 .btn-outline-primary:hover {
     background-color: #007bff;
