@@ -39,8 +39,36 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'admin','$2a$10$5X9k5N1sTc1/CjVH5XJoje3QMYijH3ETpgkox00R0MdPaJPPrf7wO',1),(2,'lecturer1','123',2),(3,'user1','123',3),(4,'dhthanh','$2a$10$5X9k5N1sTc1/CjVH5XJoje3QMYijH3ETpgkox00R0MdPaJPPrf7wO',1);
+INSERT INTO `account` VALUES (1,'admin','$2a$10$5X9k5N1sTc1/CjVH5XJoje3QMYijH3ETpgkox00R0MdPaJPPrf7wO',1),(2,'lecturer1','123',2),(3,'user1','$2a$10$5X9k5N1sTc1/CjVH5XJoje3QMYijH3ETpgkox00R0MdPaJPPrf7wO',3),(4,'dhthanh','$2a$10$5X9k5N1sTc1/CjVH5XJoje3QMYijH3ETpgkox00R0MdPaJPPrf7wO',1);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `answer`
+--
+
+DROP TABLE IF EXISTS `answer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `answer` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `content` text NOT NULL,
+  `is_correct` tinyint(1) DEFAULT NULL,
+  `question_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `question_id` (`question_id`),
+  CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=194 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `answer`
+--
+
+LOCK TABLES `answer` WRITE;
+/*!40000 ALTER TABLE `answer` DISABLE KEYS */;
+INSERT INTO `answer` VALUES (14,'Gia lai',0,3),(15,'TP. Hồ Chí Minh',1,3),(16,'Đà Nẵng',0,3),(17,'Java',1,4),(18,'Python',0,4),(19,'JavaScript',0,4),(20,'Thiết kế giao diện người dùng',0,5),(21,'Xử lý dữ liệu trên server',1,5),(22,'Tương tác với DOM trên trình duyệt',0,5),(101,'lập trình nhúng',0,22),(102,'lập trình di động',1,22),(103,'lập trình hướng đối tượng',0,22),(191,'lap trinh hướng đối tượng',1,NULL),(192,'lập trình mobi',0,NULL),(193,'lập trình cơ sở dux liệu',0,NULL);
+/*!40000 ALTER TABLE `answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -94,7 +122,7 @@ CREATE TABLE `certificate` (
 
 LOCK TABLES `certificate` WRITE;
 /*!40000 ALTER TABLE `certificate` DISABLE KEYS */;
-INSERT INTO `certificate` VALUES (1,'Java Programming Certificate',1,1,'Certified Java Developer'),(2,'Data Science Certificate',2,2,'Certified Data Scientist');
+INSERT INTO `certificate` VALUES (2,'Data Science Certificate',2,2,'Certified Data Scientist');
 /*!40000 ALTER TABLE `certificate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +143,7 @@ CREATE TABLE `course` (
   PRIMARY KEY (`id`),
   KEY `cate_id` (`cate_id`),
   CONSTRAINT `fk_course_category` FOREIGN KEY (`cate_id`) REFERENCES `category` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,7 +152,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES (1,'Java Programming','2023-01-01 00:00:00','2023-06-01 00:00:00',1,'2024-01-01 00:00:00'),(2,'Data Science Basics','2023-02-01 00:00:00','2023-07-01 00:00:00',2,'2024-02-01 00:00:00'),(3,'Introduction to Painting','2023-03-01 00:00:00','2023-08-01 00:00:00',3,'2024-03-01 00:00:00');
+INSERT INTO `course` VALUES (2,'Data Science Basics',NULL,NULL,3,NULL),(3,'Introduction to Painting',NULL,NULL,1,NULL),(10,'OOP',NULL,NULL,1,NULL),(11,'Java Programming 3',NULL,NULL,2,NULL),(13,'lucky',NULL,NULL,3,NULL);
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +184,7 @@ CREATE TABLE `feed_back` (
 
 LOCK TABLES `feed_back` WRITE;
 /*!40000 ALTER TABLE `feed_back` DISABLE KEYS */;
-INSERT INTO `feed_back` VALUES (1,'Great course!',3,1,5),(2,'Very informative.',3,2,4);
+INSERT INTO `feed_back` VALUES (2,'Very informative.',3,2,4);
 /*!40000 ALTER TABLE `feed_back` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +205,7 @@ CREATE TABLE `lesson` (
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`),
   CONSTRAINT `fk_lesson_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +214,7 @@ CREATE TABLE `lesson` (
 
 LOCK TABLES `lesson` WRITE;
 /*!40000 ALTER TABLE `lesson` DISABLE KEYS */;
-INSERT INTO `lesson` VALUES (1,'Introduction to Java','Content for Java','2023-01-01 00:00:00','2023-06-01 00:00:00',1),(2,'Data Science Introduction','Content for Data Science','2023-02-01 00:00:00','2023-07-01 00:00:00',2);
+INSERT INTO `lesson` VALUES (1,'Java Programming 3','lập trình hướng đối tượng',NULL,NULL,11),(5,'OOP','Lập trình hướng đối tượng OOP',NULL,NULL,10);
 /*!40000 ALTER TABLE `lesson` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +245,7 @@ CREATE TABLE `notify` (
 
 LOCK TABLES `notify` WRITE;
 /*!40000 ALTER TABLE `notify` DISABLE KEYS */;
-INSERT INTO `notify` VALUES (1,'New course available',1,1,'Java Programming is now available'),(2,'Course update',2,2,'Data Science Basics has been updated');
+INSERT INTO `notify` VALUES (2,'Course update',2,2,'Data Science Basics has been updated');
 /*!40000 ALTER TABLE `notify` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,7 +268,7 @@ CREATE TABLE `profile` (
   KEY `role_id` (`role_id`),
   CONSTRAINT `fk_profile_account` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_profile_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,7 +277,7 @@ CREATE TABLE `profile` (
 
 LOCK TABLES `profile` WRITE;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
-INSERT INTO `profile` VALUES (1,'Admin User','1234567890','admin@example.com',1,1),(2,'Lecturer User','0987654321','lecturer1@example.com',2,2),(3,'Regular User','1122334455','user1@example.com',3,3);
+INSERT INTO `profile` VALUES (1,'Admin User','1234567890','admin@example.com',1,1),(2,'Lecturer User','0987654321','lecturer1@example.com',2,2),(3,'Regular User','1122334455','user1@example.com',3,3),(4,'GV2','0322654000','GV2@gmail.com',NULL,2);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,7 +304,7 @@ CREATE TABLE `profile_certificate` (
 
 LOCK TABLES `profile_certificate` WRITE;
 /*!40000 ALTER TABLE `profile_certificate` DISABLE KEYS */;
-INSERT INTO `profile_certificate` VALUES (1,1),(2,2);
+INSERT INTO `profile_certificate` VALUES (2,2);
 /*!40000 ALTER TABLE `profile_certificate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,66 +331,35 @@ CREATE TABLE `profile_course` (
 
 LOCK TABLES `profile_course` WRITE;
 /*!40000 ALTER TABLE `profile_course` DISABLE KEYS */;
-INSERT INTO `profile_course` VALUES (1,1),(2,2),(3,3);
 /*!40000 ALTER TABLE `profile_course` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `profile_quizz`
+-- Table structure for table `question`
 --
 
-DROP TABLE IF EXISTS `profile_quizz`;
+DROP TABLE IF EXISTS `question`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `profile_quizz` (
-  `profile_id` int NOT NULL,
-  `quizz_id` int NOT NULL,
-  `is_completed` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`profile_id`,`quizz_id`),
-  KEY `quizz_id` (`quizz_id`),
-  CONSTRAINT `fk_profile_quizz` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_quizz_profile` FOREIGN KEY (`quizz_id`) REFERENCES `quizz` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `profile_quizz`
---
-
-LOCK TABLES `profile_quizz` WRITE;
-/*!40000 ALTER TABLE `profile_quizz` DISABLE KEYS */;
-INSERT INTO `profile_quizz` VALUES (1,1,1),(2,2,0);
-/*!40000 ALTER TABLE `profile_quizz` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `quizz`
---
-
-DROP TABLE IF EXISTS `quizz`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `quizz` (
+CREATE TABLE `question` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `content` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
+  `content` text NOT NULL,
+  `score` decimal(10,2) DEFAULT NULL,
   `lesson_id` int DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `score` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `lesson_id` (`lesson_id`),
-  CONSTRAINT `fk_quizz_lession` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `quizz`
+-- Dumping data for table `question`
 --
 
-LOCK TABLES `quizz` WRITE;
-/*!40000 ALTER TABLE `quizz` DISABLE KEYS */;
-INSERT INTO `quizz` VALUES (1,'Quizz for Java',1,'2023-01-01 00:00:00','2023-06-01 00:00:00',90.00),(2,'Quizz for Data Science',2,'2023-02-01 00:00:00','2023-07-01 00:00:00',85.50);
-/*!40000 ALTER TABLE `quizz` ENABLE KEYS */;
+LOCK TABLES `question` WRITE;
+/*!40000 ALTER TABLE `question` DISABLE KEYS */;
+INSERT INTO `question` VALUES (3,' Đâu là thủ đô của Việt Nam ?',10.00,5),(4,'Đâu là ngôn ngữ lập trình phổ biến nhất?',15.00,5),(5,'Lập trình hướng đối tượng',NULL,5),(22,'lập trình mobile là gì ?',NULL,1);
+/*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -388,6 +385,33 @@ LOCK TABLES `role` WRITE;
 INSERT INTO `role` VALUES (1,'ADMIN'),(2,'LECTURER'),(3,'USER');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `video`
+--
+
+DROP TABLE IF EXISTS `video`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `video` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `url` varchar(255) NOT NULL,
+  `lesson_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lesson_id` (`lesson_id`),
+  CONSTRAINT `video_ibfk_1` FOREIGN KEY (`lesson_id`) REFERENCES `lesson` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `video`
+--
+
+LOCK TABLES `video` WRITE;
+/*!40000 ALTER TABLE `video` DISABLE KEYS */;
+INSERT INTO `video` VALUES (7,'http://res.cloudinary.com/dyokitk35/video/upload/v1724056143/video_8bb85d77-896a-48ec-8ccd-b275c8f08da7_5.mp4',5);
+/*!40000 ALTER TABLE `video` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -398,4 +422,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-08  0:19:55
+-- Dump completed on 2024-08-22 14:30:47
