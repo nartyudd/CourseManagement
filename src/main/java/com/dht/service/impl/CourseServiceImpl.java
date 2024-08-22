@@ -21,8 +21,7 @@ import com.dht.repository.CourseRepository;
 public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseRepository courseRepo;
-    @Autowired
-    private Cloudinary cloudinary;
+    
 
     @Override
     public List<Course> getCourses() {

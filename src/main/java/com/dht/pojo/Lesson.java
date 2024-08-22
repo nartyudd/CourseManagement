@@ -22,10 +22,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -41,6 +43,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Lesson.findByCreatedDate", query = "SELECT l FROM Lesson l WHERE l.createdDate = :createdDate"),
     @NamedQuery(name = "Lesson.findByUpdateDate", query = "SELECT l FROM Lesson l WHERE l.updateDate = :updateDate")})
 public class Lesson implements Serializable {
+
+    @OneToMany(mappedBy = "lessonId")
+    private Set<Question> questionSet;
+
+    @OneToMany(mappedBy = "lessonId")
+    private Set<Video> videoSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -66,9 +74,7 @@ public class Lesson implements Serializable {
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne
     private Course courseId;
-    @OneToMany(mappedBy = "lessonId")
-    private Set<Quizz> quizzSet;
-
+    
     public Lesson() {
     }
 
@@ -130,14 +136,14 @@ public class Lesson implements Serializable {
     }
 
     @XmlTransient
-    public Set<Quizz> getQuizzSet() {
-        return quizzSet;
+    public Set<Question> getQuestionSet() {
+        return questionSet;
     }
 
-    public void setQuizzSet(Set<Quizz> quizzSet) {
-        this.quizzSet = quizzSet;
+    public void setQuestionSet(Set<Question> questionSet) {
+        this.questionSet = questionSet;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -162,5 +168,16 @@ public class Lesson implements Serializable {
     public String toString() {
         return "com.dht.pojo.Lesson[ id=" + id + " ]";
     }
+
+    @XmlTransient
+    public Set<Video> getVideoSet() {
+        return videoSet;
+    }
+
+    public void setVideoSet(Set<Video> videoSet) {
+        this.videoSet = videoSet;
+    }
+
+    
     
 }

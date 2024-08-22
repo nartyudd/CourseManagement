@@ -5,9 +5,12 @@
 package com.dht.controllers;
 
 import com.dht.repository.impl.CategoryRepositoryImpl;
+import com.dht.service.AnswerService;
 import com.dht.service.CategoryService;
 import com.dht.service.CourseService;
 import com.dht.service.LessonService;
+import com.dht.service.QuestionService;
+import com.dht.service.VideoService;
 import java.util.Map;
 import javax.persistence.Query;
 import org.hibernate.Session;
@@ -36,12 +39,24 @@ public class HomeController {
 
     @Autowired
     private LessonService lessonService;
+    
+    @Autowired
+    private VideoService videoService;
+    
+    @Autowired
+    private QuestionService questionService;
+    
+    @Autowired
+    private AnswerService answerService;
 
     @ModelAttribute
     public void commAttrs(Model model) {
         model.addAttribute("categories", cateService.getCates());
         model.addAttribute("Course", courseService.getCourses());
         model.addAttribute("lessons", lessonService.getLessons());
+        model.addAttribute("video", videoService.getVideos());
+        model.addAttribute("questions", questionService.getQuestions());
+        model.addAttribute("answers", answerService.getAnswers());
     }
 
     @RequestMapping("/")

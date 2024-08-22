@@ -53,16 +53,37 @@
                         <c:forEach var="les" items="${lessons}">
                             <c:if test="${les.courseId.id == course.id}">
                                 <c:set var="hasLessons" value="true" />
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span style="color: blue"> Nội dung bài giảng "${les.name}" : </span>
+                                <li class="list-group-item d-flex justify-content-between align-items-center" id="course${course.id}">
+                                    <strong style="color: blue"> Nội dung bài giảng "${les.name}" : </strong>
                                     <div >
-                                        <button class="btn btn-danger">&times;</button>
+
+                                        <c:url value="/api/lessons/${les.id}" var="uD" />
+                                        <button onclick="deleteLesson('${uD}', ${les.id})" class="btn btn-danger">&times;</button>
+
                                         <a href="<c:url value="/lessons/${les.id}" />" class="btn btn-sm btn-outline-primary">Chi Tiết</a>
                                     </div>
                                 </li>
                                 <li class="list-group-item content-indent">
                                     ${les.content}
                                 </li>
+
+                                <li class="list-group-item content-indent">
+                                    <c:forEach items="${video}" var="video">
+                                        <c:if test="${video.lessonId.id == les.id}">
+                                            <c:if test="${!videoDisplayed}">
+                                                <strong for="lessonContent" class="form-label">Video hướng dẫn:</strong>
+                                                <c:set var="videoDisplayed" value="true" />
+                                            </c:if>
+                                            <div>
+                                                <video width="320" height="240" controls>
+                                                    <source src="${video.url}" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+                                </li>
+
                             </c:if>
                         </c:forEach>
                         <c:if test="${not hasLessons}">

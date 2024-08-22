@@ -7,6 +7,8 @@ package com.dht.configs;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.dht.formatters.CategoryFormatter;
+import com.dht.formatters.CourseFormatter;
+import com.dht.formatters.LessonFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -50,6 +52,9 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
         resolver.setDefaultEncoding("UTF-8");
+        resolver.setMaxUploadSize(104857600L); // 100 MB
+    resolver.setMaxUploadSizePerFile(104857600L); // 100 MB per file
+    resolver.setMaxInMemorySize(104857600);
         return resolver;
     }
 
@@ -91,6 +96,8 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new CategoryFormatter());
+        registry.addFormatter(new CourseFormatter());
+        registry.addFormatter(new LessonFormatter());
     }
 
     @Override
