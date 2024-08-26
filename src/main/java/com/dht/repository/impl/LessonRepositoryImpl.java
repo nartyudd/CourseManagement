@@ -6,7 +6,9 @@ package com.dht.repository.impl;
 
 import com.dht.pojo.Course;
 import com.dht.pojo.Lesson;
+import com.dht.pojo.Video;
 import com.dht.repository.LessonRepository;
+import com.dht.service.VideoService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +35,16 @@ public class LessonRepositoryImpl implements LessonRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
-
+    
+    @Autowired
+    private VideoService videoService;
+    @Override
+    public List<Lesson> getLessons() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("From Lesson");
+        return q.getResultList();
+    }
+    
     @Override
     public List<Lesson> getLessons(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -46,8 +57,13 @@ public class LessonRepositoryImpl implements LessonRepository {
             List<Predicate> predicates = new ArrayList<>();
             String kw = params.get("q");
             if (kw != null && !kw.isEmpty()) {
-                Predicate p1 = b.like(root.get("content"), String.format("%%%s%%", kw));
+                Predicate p1 = b.like(root.get("name"), String.format("%%%s%%", kw));
                 predicates.add(p1);
+            }
+            String courseId = params.get("courseId");
+            if (courseId != null && !courseId.isEmpty()) {
+                Predicate p2 = b.equal(root.get("courseId"), Integer.parseInt(courseId));
+                predicates.add(p2);
             }
             q.where(predicates.toArray(new Predicate[0]));
         }
@@ -87,6 +103,11 @@ public class LessonRepositoryImpl implements LessonRepository {
     public void deleteLesson(int id) {
         Session s = this.factory.getObject().getCurrentSession();
         Lesson c = this.getLessonById(id);
+        List<Video> videos = this.videoService.getVideosByLessonId(id);
+        for (Video video : videos) {
+        video.setLessonId(null);
+        s.update(video);
+    }
         s.delete(c);
     }
 }

@@ -5,7 +5,6 @@
 package com.dht.service.impl;
 
 import com.dht.pojo.Profile;
-import static com.dht.pojo.ProfileQuizz_.profile;
 import com.dht.repository.ProfileRepository;
 import com.dht.service.ProfileService;
 import java.util.List;

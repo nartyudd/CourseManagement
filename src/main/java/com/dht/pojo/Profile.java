@@ -60,8 +60,7 @@ public class Profile implements Serializable {
     private Set<Certificate> certificateSet;
     @ManyToMany(mappedBy = "profileSet")
     private Set<Course> courseSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "profile")
-    private Set<ProfileQuizz> profileQuizzSet;
+    
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     @ManyToOne
     private Account accountId;
@@ -128,14 +127,6 @@ public class Profile implements Serializable {
         this.courseSet = courseSet;
     }
 
-    @XmlTransient
-    public Set<ProfileQuizz> getProfileQuizzSet() {
-        return profileQuizzSet;
-    }
-
-    public void setProfileQuizzSet(Set<ProfileQuizz> profileQuizzSet) {
-        this.profileQuizzSet = profileQuizzSet;
-    }
 
     public Account getAccountId() {
         return accountId;

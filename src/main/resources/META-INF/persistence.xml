@@ -3,6 +3,9 @@
   <persistence-unit name="com.duyan_course_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.dht.pojo.Account</class>
+    <class>com.dht.pojo.Video</class>
+    <class>com.dht.pojo.Answer</class>
+    <class>com.dht.pojo.Question</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/coursedb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

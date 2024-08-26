@@ -5,10 +5,14 @@
 package com.dht.controllers;
 
 import com.dht.repository.impl.CategoryRepositoryImpl;
+import com.dht.service.AnswerService;
 import com.dht.service.CategoryService;
 import com.dht.service.CourseService;
 import com.dht.service.LessonService;
 import com.dht.service.ProfileService;
+import com.dht.service.QuestionService;
+import com.dht.service.VideoService;
+
 import java.util.Map;
 import javax.persistence.Query;
 import org.hibernate.Session;
@@ -29,27 +33,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @ControllerAdvice
 public class HomeController {
+
     @Autowired
     private CourseService courseService;
     @Autowired
     private CategoryService cateService;
+
     @Autowired
     private ProfileService profileService;
     
+
+
     @Autowired
     private LessonService lessonService;
+    
+    @Autowired
+    private VideoService videoService;
+    
+    @Autowired
+    private QuestionService questionService;
+    
+    @Autowired
+    private AnswerService answerService;
+
     @ModelAttribute
     public void commAttrs(Model model) {
         model.addAttribute("categories", cateService.getCates());
+        model.addAttribute("Course", courseService.getCourses());
+        model.addAttribute("lessons", lessonService.getLessons());
+        model.addAttribute("video", videoService.getVideos());
+        model.addAttribute("questions", questionService.getQuestions());
+        model.addAttribute("answers", answerService.getAnswers());
     }
-    @ModelAttribute
-    public void lesson(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("lesson", lessonService.getLessons(params));
-    }
+
     @RequestMapping("/")
     public String index(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("courses", this.courseService.getCourses(params));
-        return "home"; 
+        model.addAttribute("course", this.courseService.getCourses(params));
+        return "home";
+    }
+    @RequestMapping("/lessons")
+    public String lesson(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("lesson", this.lessonService.getLessons(params));
+        return "lessons";
     }
     @RequestMapping("/profile")
     public String profile(Model model, @RequestParam Map<String, String> params) {

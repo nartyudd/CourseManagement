@@ -13,4 +13,5 @@ public interface LessonRepository{
     void addOrUpdate(Lesson l);
     public Lesson getLessonById(int id);
     void deleteLesson(int id);
+    List<Lesson> getLessons();
 }
