@@ -9,8 +9,10 @@ import com.dht.service.AnswerService;
 import com.dht.service.CategoryService;
 import com.dht.service.CourseService;
 import com.dht.service.LessonService;
+import com.dht.service.ProfileService;
 import com.dht.service.QuestionService;
 import com.dht.service.VideoService;
+
 import java.util.Map;
 import javax.persistence.Query;
 import org.hibernate.Session;
@@ -36,6 +38,11 @@ public class HomeController {
     private CourseService courseService;
     @Autowired
     private CategoryService cateService;
+
+    @Autowired
+    private ProfileService profileService;
+    
+
 
     @Autowired
     private LessonService lessonService;
@@ -68,5 +75,10 @@ public class HomeController {
     public String lesson(Model model, @RequestParam Map<String, String> params) {
         model.addAttribute("lesson", this.lessonService.getLessons(params));
         return "lessons";
+    }
+    @RequestMapping("/profile")
+    public String profile(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("profiles", this.profileService.getAllProfiles(params));
+        return "profile"; 
     }
 }
