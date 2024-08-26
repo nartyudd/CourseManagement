@@ -17,4 +17,8 @@
         <put-attribute name="title" value="Quản trị sản phẩm" />
         <put-attribute name="content" value="/WEB-INF/pages/courses.jsp" />
     </definition>
+    <definition name="profile" extends="baseLayout">
+        <put-attribute name="title" value="Quản lý giảng viên" />
+        <put-attribute name="content" value="/WEB-INF/pages/profile.jsp" />
+    </definition>
 </tiles-definitions>

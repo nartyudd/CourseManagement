@@ -8,6 +8,7 @@ import com.dht.repository.impl.CategoryRepositoryImpl;
 import com.dht.service.CategoryService;
 import com.dht.service.CourseService;
 import com.dht.service.LessonService;
+import com.dht.service.ProfileService;
 import java.util.Map;
 import javax.persistence.Query;
 import org.hibernate.Session;
@@ -32,6 +33,8 @@ public class HomeController {
     private CourseService courseService;
     @Autowired
     private CategoryService cateService;
+    @Autowired
+    private ProfileService profileService;
     
     @Autowired
     private LessonService lessonService;
@@ -47,5 +50,10 @@ public class HomeController {
     public String index(Model model, @RequestParam Map<String, String> params) {
         model.addAttribute("courses", this.courseService.getCourses(params));
         return "home"; 
+    }
+    @RequestMapping("/profile")
+    public String profile(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("profiles", this.profileService.getAllProfiles(params));
+        return "profile"; 
     }
 }

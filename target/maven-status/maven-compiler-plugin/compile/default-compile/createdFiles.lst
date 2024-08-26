@@ -1,4 +1,6 @@
+com\dht\repository\impl\LessonRepositoryImpl.class
 com\dht\controllers\ApiUserController.class
+com\dht\repository\ProfileRepository.class
 com\dht\pojo\Account_.class
 com\dht\pojo\Profile.class
 com\dht\pojo\Lesson.class
@@ -22,10 +24,12 @@ com\dht\controllers\ApiCategoryController.class
 com\dht\pojo\ProfileQuizzPK.class
 com\dht\pojo\Category.class
 com\dht\pojo\Profile_.class
+com\dht\repository\impl\ProfileRepositoryImpl.class
 com\dht\controllers\HomeController.class
 com\dht\pojo\Account.class
 com\dht\pojo\Role.class
 com\dht\pojo\Category_.class
+com\dht\repository\LessonRepository.class
 com\dht\repository\UserRepository.class
 com\dht\configs\JwtSecurityConfig.class
 com\dht\service\UserService.class
@@ -33,7 +37,11 @@ com\dht\controllers\StatsController.class
 com\dht\pojo\Certificate_.class
 com\dht\pojo\Quizz.class
 com\dht\service\impl\UserServiceImpl.class
+com\dht\controllers\ApiCourseController.class
 com\dht\repository\impl\CategoryRepositoryImpl.class
+com\dht\service\QuizzService.class
+com\dht\controllers\ProfileController.class
+com\dht\service\ProfileService.class
 com\dht\repository\impl\StatsRepositoryImpl.class
 com\dht\configs\HibernateConfigs.class
 com\dht\pojo\ProfileQuizzPK_.class
@@ -53,6 +61,10 @@ com\dht\configs\WebAppContextConfigs.class
 com\dht\controllers\CourseController.class
 com\dht\repository\CategoryRepository.class
 com\dht\repository\StatsRepository.class
+com\dht\service\LessonService.class
+com\dht\service\impl\ProfileServiceImpl.class
+com\dht\service\impl\LessonServiceImpl.class
 com\dht\pojo\Lesson_.class
 com\dht\repository\CourseRepository.class
 com\dht\service\StatsService.class
+com\dht\repository\QuizzRepository.class

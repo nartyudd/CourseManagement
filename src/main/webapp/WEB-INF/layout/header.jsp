@@ -16,10 +16,10 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/" />">Quản lý khóa học</a>
+                    <a class="nav-link" href="<c:url value="/courses" />">Quản lý khóa học</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/" />">Quản lý giảng viên</a>
+                    <a class="nav-link" href="<c:url value="/profile" />">Quản lý giảng viên</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/" />">Quản lý tài khoản</a>
